@@ -1,0 +1,2 @@
+# P8_ToDoList
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/207ee0de886b413cac1f2aac6f6c1810)](https://app.codacy.com/gh/nvendeville/P8_ToDoList?utm_source=github.com&utm_medium=referral&utm_content=nvendeville/P8_ToDoList&utm_campaign=Badge_Grade_Settings)
