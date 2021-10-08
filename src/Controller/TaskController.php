@@ -95,7 +95,7 @@ class TaskController extends AbstractController
         try {
             $this->denyAccessUnlessGranted('delete_task', $task);
         } catch (AccessDeniedException $exception) {
-            $this->addFlash('bundles', 'Vous ne pouvez pas supprimer cette tâche');
+            $this->addFlash('error', 'Vous ne pouvez pas supprimer cette tâche');
 
             return $this->redirectToRoute('task_list');
         }
