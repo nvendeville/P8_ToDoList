@@ -40,11 +40,11 @@ class UserController extends AbstractController
 
     ): RedirectResponse|Response
     {
-        if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
+        /*if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
             $this->addFlash('accessdenied', "Vous n'avez pas accès à cette page.");
 
             return $this->render('default/index.html.twig');
-        }
+        }*/
 
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
