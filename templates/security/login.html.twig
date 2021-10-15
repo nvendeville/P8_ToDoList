@@ -4,8 +4,8 @@
 
 {% block body %}
 <form method="post">
-    {% if error %}
-        <div class="alert alert-danger" id="invalidCredentials">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% if bundles %}
+        <div class="alert alert-danger" id="invalidCredentials">{{ bundles.messageKey|trans(bundles.messageData, 'security') }}</div>
     {% endif %}
 
     {% if app.user %}

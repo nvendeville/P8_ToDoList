@@ -9,6 +9,11 @@
             <strong>Oops !</strong> {{ flash_message }}
         </div>
     {% endfor %}
+    {% for flash_message in app.flashes('error') %}
+        <div class="alert alert-danger" role="alert">
+            <strong>Oops !</strong> {{ flash_message }}
+        </div>
+    {% endfor %}
     <a href="{{ path('task_create') }}" class="btn btn-info pull-right">Créer une tâche</a>
     <div class="row">
         {% for task in tasks %}

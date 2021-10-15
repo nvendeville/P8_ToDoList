@@ -52,30 +52,39 @@ class TaskController extends AbstractController
     }
 
     #[Route('/tasks/{id}/edit', name: 'task_edit')]
-    public function editAction(Task $task, Request $request): Response
+    public function editAction(Task $task = null, Request $request): Response
     {
-            $form = $this->createForm(TaskType::class, $task);
+        if (empty($task)) {
 
-            $form->handleRequest($request);
+            return $this->notExistTask();
+        }
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $this->getDoctrine()->getManager()->flush();
+        $form = $this->createForm(TaskType::class, $task);
 
-                $this->addFlash('success', 'La tâche a bien été modifiée.');
+        $form->handleRequest($request);
 
-                return $this->redirectToRoute('task_list');
-            }
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
 
-            return $this->render('task/edit.html.twig', [
-                'form' => $form->createView(),
-                'task' => $task,
-            ]);
+            $this->addFlash('success', 'La tâche a bien été modifiée.');
 
+            return $this->redirectToRoute('task_list');
+        }
+
+        return $this->render('task/edit.html.twig', [
+            'form' => $form->createView(),
+            'task' => $task,
+        ]);
     }
 
     #[Route('/tasks/{id}/toggle', name: 'task_toggle')]
-    public function toggleTaskAction(Task $task): RedirectResponse
+    public function toggleTaskAction(Task $task = null): RedirectResponse | Response
     {
+        if (empty($task)) {
+
+            return $this->notExistTask();
+        }
+
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
 
@@ -90,8 +99,13 @@ class TaskController extends AbstractController
     }
 
     #[Route('/tasks/{id}/delete', name: 'task_delete')]
-    public function deleteTaskAction(Task $task): RedirectResponse
+    public function deleteTaskAction(Task $task = null): RedirectResponse | Response
     {
+        if (empty($task)) {
+
+            return $this->notExistTask();
+        }
+
         try {
             $this->denyAccessUnlessGranted('delete_task', $task);
         } catch (AccessDeniedException $exception) {
@@ -108,5 +122,15 @@ class TaskController extends AbstractController
 
        return $this->redirectToRoute('task_list');
        }
+
+   public function notExistTask (): Response
+   {
+       $this->addFlash('error', "Cette tâche n'existe pas");
+
+       return $this->render(
+           'task/list.html.twig',
+           ['tasks' => $this->getDoctrine()->getRepository(Task::class)->findAll()]
+       );
+   }
 }
 

@@ -1,7 +1,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f2852b96fc6346babb25b88ae73f0ca5)](https://www.codacy.com/gh/nvendeville/P8_ToDoList/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nvendeville/P8_ToDoList&amp;utm_campaign=Badge_Grade)
 
 # To Do List
-Une application vous permettant de gérer l'ensemble de vos tâches sans effort
+Simply manage all your to do tasks !
 
 ## Prerequest
 Composer https://getcomposer.org/download/
