@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Form\UserType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,8 +17,7 @@ class UserController extends AbstractController
     #[Route('/users', name: 'user_list')]
     public function listAction(
         AuthorizationCheckerInterface $authorizationChecker
-    ): Response
-    {
+    ): Response {
         if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
             $this->addFlash('accessdenied', "Vous n'avez pas accès à cette page.");
 
@@ -38,8 +36,7 @@ class UserController extends AbstractController
         UserPasswordHasherInterface $passwordHasher,
         AuthorizationCheckerInterface $authorizationChecker
 
-    ): RedirectResponse|Response
-    {
+    ): RedirectResponse|Response {
         if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
             $this->addFlash('accessdenied', "Vous n'avez pas accès à cette page.");
 
@@ -73,8 +70,7 @@ class UserController extends AbstractController
         Request $request,
         UserPasswordHasherInterface $passwordHasher,
         AuthorizationCheckerInterface $authorizationChecker
-    ): RedirectResponse|Response
-    {
+    ): RedirectResponse|Response {
         if (empty($user)) {
             $this->addFlash('error', "Cet utilisateur n'existe pas");
 
@@ -108,4 +104,3 @@ class UserController extends AbstractController
         return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
     }
 }
-

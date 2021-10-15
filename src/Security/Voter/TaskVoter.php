@@ -10,7 +10,7 @@ use App\Entity\Task;
 
 class TaskVoter extends Voter
 {
-    const DELETE_TASK = 'delete_task';
+    public const DELETE_TASK = 'delete_task';
     private Security $security;
 
     public function __construct(Security $security)
@@ -40,11 +40,12 @@ class TaskVoter extends Voter
 
     private function canDelete($task, $user): bool
     {
-        if (($task->getAuthor() == 'anonymous')
-            && (
+        if ((
+            $task->getAuthor() == 'anonymous') && (
             $this->security->isGranted('ROLE_ADMIN')) ||
             ($task->getAuthor() == $user
-            )) {
+            )
+        ) {
             return true;
         }
             return false;

@@ -27,15 +27,13 @@ class TaskController extends AbstractController
     #[Route('/tasks/create', name: 'task_create')]
     public function createAction(
         Request $request,
-    ): Response
-    {
+    ): Response {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
-
             $entityManager = $this->getDoctrine()->getManager();
             $task->setAuthor($this->getUser());
             $entityManager->persist($task);
@@ -55,7 +53,6 @@ class TaskController extends AbstractController
     public function editAction(Task $task = null, Request $request): Response
     {
         if (empty($task)) {
-
             return $this->notExistTask();
         }
 
@@ -81,7 +78,6 @@ class TaskController extends AbstractController
     public function toggleTaskAction(Task $task = null): RedirectResponse | Response
     {
         if (empty($task)) {
-
             return $this->notExistTask();
         }
 
@@ -92,7 +88,8 @@ class TaskController extends AbstractController
             'success',
             sprintf(
                 'La tâche %s a bien été marquée comme faite.',
-                $task->getTitle())
+                $task->getTitle()
+            )
         );
 
         return $this->redirectToRoute('task_list');
@@ -102,7 +99,6 @@ class TaskController extends AbstractController
     public function deleteTaskAction(Task $task = null): RedirectResponse | Response
     {
         if (empty($task)) {
-
             return $this->notExistTask();
         }
 
@@ -114,23 +110,22 @@ class TaskController extends AbstractController
             return $this->redirectToRoute('task_list');
         }
 
-       $em = $this->getDoctrine()->getManager();
-       $em->remove($task);
-       $em->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($task);
+        $entityManager->flush();
 
-       $this->addFlash('success', 'La tâche a bien été supprimée.');
+        $this->addFlash('success', 'La tâche a bien été supprimée.');
 
-       return $this->redirectToRoute('task_list');
-       }
+        return $this->redirectToRoute('task_list');
+    }
 
-   public function notExistTask (): Response
-   {
-       $this->addFlash('error', "Cette tâche n'existe pas");
+    public function notExistTask(): Response
+    {
+        $this->addFlash('error', "Cette tâche n'existe pas");
 
-       return $this->render(
-           'task/list.html.twig',
-           ['tasks' => $this->getDoctrine()->getRepository(Task::class)->findAll()]
-       );
-   }
+        return $this->render(
+            'task/list.html.twig',
+            ['tasks' => $this->getDoctrine()->getRepository(Task::class)->findAll()]
+        );
+    }
 }
-

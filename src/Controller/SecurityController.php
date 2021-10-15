@@ -33,4 +33,3 @@ class SecurityController extends AbstractController
         return $this->render('default/index.html.twig');
     }
 }
-
