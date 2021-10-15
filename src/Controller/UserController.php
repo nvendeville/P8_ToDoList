@@ -40,11 +40,11 @@ class UserController extends AbstractController
 
     ): RedirectResponse|Response
     {
-        /*if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
+        if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
             $this->addFlash('accessdenied', "Vous n'avez pas accès à cette page.");
 
             return $this->render('default/index.html.twig');
-        }*/
+        }
 
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -69,11 +69,21 @@ class UserController extends AbstractController
 
     #[Route('/users/{id}/edit', name: 'user_edit')]
     public function editAction(
-        User $user, Request $request,
+        User $user = null,
+        Request $request,
         UserPasswordHasherInterface $passwordHasher,
         AuthorizationCheckerInterface $authorizationChecker
     ): RedirectResponse|Response
     {
+        if (empty($user)) {
+            $this->addFlash('error', "Cet utilisateur n'existe pas");
+
+            return $this->render(
+                'user/list.html.twig',
+                ['users' => $this->getDoctrine()->getRepository(User::class)->findAll()]
+            );
+        }
+
         if (!$authorizationChecker->isGranted('ROLE_ADMIN')) {
             $this->addFlash('accessdenied', "Vous n'avez pas accès à cette page.");
 
