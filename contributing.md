@@ -1,7 +1,8 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f2852b96fc6346babb25b88ae73f0ca5)](https://www.codacy.com/gh/nvendeville/P8_ToDoList/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nvendeville/P8_ToDoList&amp;utm_campaign=Badge_Grade)
+<a href="https://codeclimate.com/github/nvendeville/P8_ToDoList/maintainability"><img src="https://api.codeclimate.com/v1/badges/9e8a476d715cdfea2d43/maintainability" /></a>
 
 # To Do List
-Une application vous permettant de gérer l'ensemble de vos tâches sans effort
+Simply manage all your to do tasks !
 
 ## Prerequest
 Composer https://getcomposer.org/download/
@@ -54,12 +55,13 @@ Composer https://getcomposer.org/download/
 ### Prerequests to any new commit
 - **Code quality and best practices** :
     - **Code quality** :
-  
+
   Please consider the official recommendations to manage your **code style** by consulting https://www.php-fig.org/psr/
-  To help you to check your code, you can register your repository to Codacy. This tool will run several linters to check your code.
-  today, the reached badge is A, please don't commit any codes if the result in Codacy is given under this level.
+  To help you to check your code, run the commande ``composer run linter``. PhpCS, PhpMessDetector and PhpStan are installed in the project.
+  You can also register your repository to Codacy and CodeClimate. This tool will run other linters to check your code.
+  Today, the reached badge is A, please don't commit any codes if the result in Codacy and CodeClimate is given under this level.
     - **Best practices** :
-  
+
   Please apply Symfony best practices mentioned in https://symfony.com/doc/current/best_practices.html for any new features
 
 
@@ -68,12 +70,12 @@ Composer https://getcomposer.org/download/
   The application is covered by functional and unit tests. Please cover any new features with tests and ensure the test coverage of the application does not fall below 90%.
   To run the tests, in your terminal, run the command ``php bin/phpunit --coverage-html web/testcoverage``
 
-  - **Unit tests** :
-  
+    - **Unit tests** :
+
   All unit tests have been written with PHPUnit. Follow their recommendations explained in the official documentation https://phpunit.readthedocs.io/
-    
-  - **Functional tests** :
-  
+
+    - **Functional tests** :
+
   All functional tests have been written using the WebTestCase of Symfony. Find help in the Symfony official documentation https://symfony.com/doc/current/testing.html
 
 ### Push a commit
